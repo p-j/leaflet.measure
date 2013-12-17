@@ -2,26 +2,44 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="leaflet/dist/leaflet.css" />
-		<!--[if lte IE 8]><link rel="stylesheet" href="leaflet/dist/leaflet.ie.css" /><![endif]-->
+		<!--[if lte IE 8]>
+			<link rel="stylesheet" href="leaflet/dist/leaflet.ie.css" />
+		<![endif]-->
 		<link rel="stylesheet" href="leaflet.measure/leaflet.measure.css" />
+		<script src="leaflet/build/deps.js">
 
-		<script src="leaflet/build/deps.js"></script>
-		<script src="leaflet/debug/leaflet-include.js"></script>
-		<script src="leaflet.measure/leaflet.measure.js"></script>
+		</script>
+		<script src="leaflet/debug/leaflet-include.js">
+
+		</script>
+		<script src="leaflet.measure/leaflet.measure.js">
+
+		</script>
 	</head>
-	
 	<body>
-		<div id="map" style="width: 800px; height: 600px;"></div>
-
+		<div id="map" style="width: 800px; height: 600px;">
+		</div>
 		<script type="text/javascript">
 			var layerOsm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	          subdomains: ["a", "b", "c"],
-	          maxZoom: 18
-	        });
-			
-			var map = new L.Map('map', {
-				measureControl: true
-			}).addLayer(layerOsm).setView(new L.LatLng(40.524724, -3.816153), 6);
+				subdomains: ["a", "b", "c"],
+				maxZoom: 18
+			});
+
+			var map = new L.Map('map').addControl(new L.Control.Measure({
+				unitConverter: function(val) {
+					if (val > 50000) {
+						this.unitLabel = 'km';
+						return Math.round(val / 1000); // Returns 72 km
+					} else if (val > 10000) {
+						this.unitLabel = 'km';
+						return Math.round(val / 100) / 10; // Returns 25.2 km
+					} else {
+						this.unitLabel = 'm';
+						return Math.round(val); // Returns 9852 m
+					}
+				}
+			})).addLayer(layerOsm).setView(new L.LatLng(40.524724, -3.816153), 6);
 		</script>
 	</body>
+
 </html>
