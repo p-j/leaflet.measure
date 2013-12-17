@@ -5,4 +5,4 @@ Adds a button below the map's zoom controls that allows you to activate an inter
 
 More info coming soon...
 
-For a demo see [here](http://jtreml.github.com/leaflet.measure/example.html).
+For a demo see [here](http://p-j.github.io/leaflet.measure/example.html).
