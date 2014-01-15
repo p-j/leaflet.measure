@@ -28,14 +28,20 @@
 			var map = new L.Map('map').addControl(new L.Control.Measure({
 				unitConverter: function(val) {
 					if (val > 50000) {
-						this.unitLabel = 'km';
-						return Math.round(val / 1000); // Returns 72 km
+						return {
+							unit: 'km',
+							value: Math.round(val / 1000) // Returns 72 km
+						};
 					} else if (val > 10000) {
-						this.unitLabel = 'km';
-						return Math.round(val / 100) / 10; // Returns 25.2 km
+						return {
+							unit: 'km',
+							value: Math.round(val / 100) / 10 // Returns 25.2 km
+						};
 					} else {
-						this.unitLabel = 'm';
-						return Math.round(val); // Returns 9852 m
+						return {
+							unit: 'm',
+							value: Math.round(val) // Returns 9852 m
+						};
 					}
 				}
 			})).addLayer(layerOsm).setView(new L.LatLng(40.524724, -3.816153), 6);

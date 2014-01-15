@@ -1,8 +1,12 @@
 L.Control.Measure = L.Control.extend({
 	options: {
 		position: 'topleft',
-		unitConverter: function(val) { return Math.round(val); },
-		unitLabel: 'm'
+		unitConverter: function(val) {
+			return {
+				unit:  'm',
+				value: Math.round(val)
+			};
+		}
 	},
 
 	onAdd: function(map) {
@@ -202,9 +206,9 @@ L.Control.Measure = L.Control.extend({
 		var totalRound = this.options.unitConverter(total),
 			differenceRound = this.options.unitConverter(difference);
 
-		var text = '<div class="leaflet-measure-tooltip-total">' + totalRound + ' ' + this.options.unitLabel + '</div>';
-		if (differenceRound > 0 && totalRound != differenceRound) {
-			text += '<div class="leaflet-measure-tooltip-difference">(+' + differenceRound + ' ' + this.options.unitLabel + ')</div>';
+		var text = '<div class="leaflet-measure-tooltip-total">' + totalRound.value + ' ' + totalRound.unit + '</div>';
+		if (differenceRound.value > 0 && totalRound.value != differenceRound.value) {
+			text += '<div class="leaflet-measure-tooltip-difference">(+' + differenceRound.value + ' ' + differenceRound.unit + ')</div>';
 		}
 
 		this._tooltip._icon.innerHTML = text;
